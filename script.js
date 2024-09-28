@@ -12,9 +12,9 @@ function clearDisplay() {
 }
 
 function backspace() {
-   calculation = calculation.slice(0, -1);
-   display.value = calculation;
-   document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
+    calculation = calculation.slice(0, -1);
+    display.value = calculation;
+    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
 }
 
 function calculate() {
@@ -33,12 +33,12 @@ function calculate() {
             case '/':
                 calculation = division(i);
                 return;
-            default:
-                display.value = 'Error';
-                document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
-                calculation = '';
+            
         }
     }
+    display.value = 'Error';
+    document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
+    calculation = '';
 }
 
 function addition(index) {
@@ -98,8 +98,4 @@ function multiplication(index) {
 
 function division(index) {
     return '-1';
-}
-
-function errorColor() {
-
 }
