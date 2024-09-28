@@ -12,8 +12,8 @@ function clearDisplay() {
 }
 
 function backspace() {
-    if (calculation == 'infinity') {
-        updateDisplay('');
+    if (calculation === 'Infinity') {
+        calculation = '';
     }
     else {
         calculation = calculation.slice(0, -1);
