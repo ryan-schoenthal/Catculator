@@ -6,7 +6,8 @@ body {
 .calculator {
   width: 300px;
   margin: 50px auto;
-  background-color: #fff;
+  --bg-color: #cec3c1;
+  background-color: var(--bg-color);
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
