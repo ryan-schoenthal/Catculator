@@ -12,13 +12,9 @@ function clearDisplay() {
 }
 
 function backspace() {
-    if (calculation === 'Infinity') {
-        calculation = '';
-    }
-    else {
-        calculation = calculation.slice(0, -1);
-    }
-    display.value = calculation;
+   calculation = calculation.slice(0, -1);
+   display.value = calculation;
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
 }
 
 function calculate() {
@@ -27,7 +23,12 @@ function calculate() {
         display.value = result;
         calculation = result.toString();
     } catch (error) {
-        display.value = 'Error';
-        calculation = '';
+       display.value = 'Error';
+       document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
+       calculation = '';
     }
+}
+
+function errorColor() {
+
 }
