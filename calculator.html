@@ -6,6 +6,9 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<header>
+    <h>Calculator</h>
+</header>
 <body>
     <div class="calculator">
         <input type="text" id="display" disabled>
@@ -29,10 +32,18 @@
            <button class="button" onclick="updateDisplay('0')">0</button>
            <button class="button" onclick="updateDisplay('.')">.</button>
            <button class="button" onclick="calculate()">=</button>
-           <button class="button" onclick="updateDisplay('+')">+</button>
+           <button class="button" onclick="addButton()">+</button>
         </div>
     </div>
 
     <script src="script.js"></script>
+
+    <div class="quest">
+        <p>Quest #1: Infinity</p>
+        <p>Quest #2: ln4</p>
+        <p>Quest #3: r34</p>
+        <p>Quest #4: :3</p>
+    </div>
+
 </body>
 </html>
