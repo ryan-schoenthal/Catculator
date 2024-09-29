@@ -3,6 +3,8 @@ let calculation = '';
 let quests = [':3', 'Infinity', 'Sep29', 'p5', 'r2-d2', 'Arg.', '1 22 333', 'ln 4', '#000000', 'Catculator!'];
 let completedQuests = 0;
 
+showWelcome();
+
 function updateDisplay(value) {
     document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
     calculation += value;
@@ -272,6 +274,18 @@ function showPopup() {
     window.addEventListener('click', function(event) {
         if (event.target == document.getElementById('popup')) {
             document.getElementById('popup').style.display = 'none';
+        }
+    });
+}
+
+function showWelcome() {
+    document.getElementById('welcome-popup').style.display = 'block';
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('welcome-popup').style.display = 'none';
+    });
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('welcome-popup')) {
+            document.getElementById('welcome-popup').style.display = 'none';
         }
     });
 }
