@@ -187,6 +187,7 @@ function period (index){
 }
 
 function sqrt(index) {
+
     let operand = calculation.substring(index + 1);
     let number = parseInt(operand);
 
@@ -208,7 +209,6 @@ function sqrt(index) {
 function changeBackgroundColor(hex) {
     document.body.style.backgroundColor = hex;
 }
-
 
 function percent (index) {
    let operand1 = calculation.substring(0, index).trim();
@@ -233,7 +233,8 @@ function updateQuestBox() {
 
    let questText = 'Quest: Create ' + quests[completedQuests].toString();
    console.log(questText);
-   document.getElementById('quest').innerHTML = questText;
+   document.getElementById('quest_text').innerHTML = questText;
+
 
 }
 
@@ -260,4 +261,3 @@ function completeQuest() {
    display.value = calculation;
 
 }
-
