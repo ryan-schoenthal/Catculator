@@ -21,6 +21,7 @@ function backspace() {
 function calculate() {
 
     if (checkQuest()) {
+        document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
         calculation = 'Quest: Complete!'
         display.value = calculation;
         return;
@@ -44,7 +45,10 @@ function calculate() {
                 calculation = division(i);
                 display.value = calculation;
                 return;
-            
+            case '√':
+                calculation = sqrt(i);
+                display.value = calculation;
+                return;
         }
     }
     display.value = 'Error';
@@ -65,31 +69,31 @@ function checkQuest() {
 
 let buttonCount = 0, customButtons = [];
 function addButton() {
-   let buttonText = display.value;
-   if(buttonCount < 4) {
-      //create button
-      let newButton = document.createElement('button');
-      //add class for styling
-      newButton.className = 'button';
-      //set text
-      newButton.innerHTML = buttonText;
-      //Set onclick function
-      newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
-      //append buttons to buttons container
-      document.querySelector('.buttons').appendChild(newButton);
-      customButtons.push(newButton);
-   }else{
-      customButtons[buttonCount % 4].innerHTML = buttonText;
-      customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
-   }
+    let buttonText = display.value;
+    if(buttonCount < 4) {
+        //create button
+        let newButton = document.createElement('button');
+        //add class for styling
+        newButton.className = 'button';
+        //set text
+        newButton.innerHTML = buttonText;
+        //Set onclick function
+        newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
+        //append buttons to buttons container
+        document.querySelector('.buttons').appendChild(newButton);
+        customButtons.push(newButton);
+    } else{
+        customButtons[buttonCount % 4].innerHTML = buttonText;
+        customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
+    }
 
-   buttonCount++;
-   clearDisplay();
+    buttonCount++;
+    clearDisplay();
 }
 
 
 function displayCustom(buttonText) {
-   updateDisplay(buttonText);
+    updateDisplay(buttonText);
 }
 
 
@@ -151,11 +155,19 @@ function division(index) {
     let operand1 = calculation.substring(0, index).trim();
     let operand2 = calculation.substring(index+1).trim();
 
-    if (operand2 === 0) {
-        let result = 'Infinity';
+    if (operand2 == 0) {
+        result = 'Infinity';
     } else {
-        let result = operand1.substring(operand2);
+        result = operand1.substring(operand2);
     }
 
     return result;
+}
+
+function sqrt(index) {
+    let operand = calculation.substring(index+1);
+    if (parseInt(operand) === NaN) {
+        return NaN
+    }
+    return parseInt(operand).toString(16);
 }
