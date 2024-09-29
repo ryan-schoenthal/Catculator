@@ -55,14 +55,25 @@ header{
 }
 
 .quest{
-  width: 300px;
-  margin: 20px auto;
-  background-color: #fff;
+  /* width: 300px;
+  margin: 20px auto; */
+  /* background-color: #f0f0f0; #fff */
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+  /* border: 1px solid #ddd; */
+  /* border-radius: 10px; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* font-family: Arial, sans-serif; */
+  /* font-size: 14px; */
+  /* text-align: center; */
+  position: relative;
   text-align: center;
+  color: white;
+}
+
+.centered{
+  color: black;
+  position: absolute;
+  top: 55px;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
