@@ -169,5 +169,7 @@ function sqrt(index) {
     if (parseInt(operand) === NaN) {
         return NaN
     }
-    return parseInt(operand).toString(16);
+    color =  parseInt(operand).toString(16);
+    const myElement = document.querySelector('.my-element');
+    myElement.style.backgroundColor = 'color';
 }
