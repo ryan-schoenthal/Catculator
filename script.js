@@ -165,11 +165,26 @@ function division(index) {
 }
 
 function sqrt(index) {
-    let operand = calculation.substring(index+1);
-    if (parseInt(operand) === NaN) {
-        return NaN
+    let operand = calculation.substring(index + 1);
+    let number = parseInt(operand);
+
+    if (isNaN(number)) {
+        return NaN;
     }
-    color =  parseInt(operand).toString(16);
-    const myElement = document.querySelector('.my-element');
-    myElement.style.backgroundColor = 'color';
+
+    // Ensure the number is within the range for a valid color hex code (0 to 16777215)
+    number = Math.abs(number) % 16777216;
+
+   
+    let hexString = number.toString(16).padStart(6, '0');
+
+    hex = `#${hexString}`;
+    changeBackgroundColor(hex);
+    return hex;
 }
+ 
+function changeBackgroundColor(hex) {
+    document.body.style.backgroundColor = hex;
+}
+
+
