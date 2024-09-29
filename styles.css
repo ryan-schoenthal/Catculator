@@ -3,9 +3,16 @@ body {
   background-color: #f0f0f0;
 }
 
+header{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 30px;
+}
+
 .calculator {
   width: 300px;
-  margin: 50px auto;
+  margin: 20px auto;
   --bg-color: #cec3c1;
   background-color: var(--bg-color);
   padding: 20px;
@@ -43,4 +50,17 @@ body {
 
 .button:hover {
   background-color: #f0f0f0;
+}
+
+.quest{
+  width: 300px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  text-align: center;
 }
