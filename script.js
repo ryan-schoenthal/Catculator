@@ -21,6 +21,7 @@ function backspace() {
 function calculate() {
 
     if (checkQuest()) {
+        document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
         calculation = 'Quest: Complete!'
         display.value = calculation;
         return;
