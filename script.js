@@ -22,6 +22,7 @@ function calculate() {
         switch (calculation.charAt(i)) {
             case '+':
                 calculation = addition(i);
+                display.value = calculation;
                 return;
             case '-':
                 calculation = subtraction(i);
@@ -29,9 +30,11 @@ function calculate() {
                 return;
             case '*':
                 calculation = multiplication(i);
+                display.value = calculation;
                 return;
             case '/':
                 calculation = division(i);
+                display.value = calculation;
                 return;
             
         }
@@ -83,6 +86,8 @@ function subtraction(index) {
     month_to_text.set(10,'Oct');
     month_to_text.set(11,'Nov');
     month_to_text.set(12,'Dec');
+
+    if (days == 0) days = 1;
 
     let result = month_to_text.get(month).toString() + days.toString();
 
