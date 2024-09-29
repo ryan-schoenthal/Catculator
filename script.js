@@ -1,6 +1,6 @@
 let display = document.getElementById('display');
 let calculation = '';
-let quests = [':3','Infinity','ln4', 'r34'];
+let quests = [':3','Infinity','ln4', 'r34', 'catculator!'];
 let completedQuests = 0;
 
 function updateDisplay(value) {
@@ -165,7 +165,20 @@ function sqrt(index) {
     return parseInt(operand).toString(16);
 }
 
-
+function percent (index) {
+    let operand1 = calculation.substring(0, index).trim();
+    let operand2 = calculation.substring(index+1).trim();
+    result = operand1;
+ 
+    if(operand2 < operand1.length){
+       result = operand1.substring(0, operand2) + " " + operand1.substring(operand2);
+    }else{
+       result = result + " ";
+    }
+ 
+    return result;
+ 
+ }
 
 function updateQuestBox() {
     if (completeQuests >= quests.length) {
@@ -201,17 +214,5 @@ function completeQuest() {
     calculation = 'Quest Complete!'
     display.value = calculation;
 
-function percent (index) {
-   let operand1 = calculation.substring(0, index).trim();
-   let operand2 = calculation.substring(index+1).trim();
-   result = operand1;
-
-   if(operand2 < operand1.length){
-      result = operand1.substring(0, operand2) + " " + operand1.substring(operand2);
-   }else{
-      result = result + " ";
-   }
-
-   return result;
-
 }
+
