@@ -149,10 +149,10 @@ function division(index) {
     let operand1 = calculation.substring(0, index).trim();
     let operand2 = calculation.substring(index+1).trim();
 
-    if (operand2 === 0) {
-        let result = 'Infinity';
+    if (operand2 == 0) {
+        result = 'Infinity';
     } else {
-        let result = operand1.substring(operand2);
+        result = operand1.substring(operand2);
     }
 
     return result;
