@@ -151,10 +151,9 @@ function multiplication(index) {
     let minutes = Math.abs((parseInt(operand1) * parseInt(operand2)));
     let hours = Math.floor(minutes / 60);
     hours = hours % 24;
-    hours = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
+    hours = hours.toLocaleString('en-US', { minimumIntegerDigits: 2 });
     minutes = minutes % 60;
-    minutes = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
-
+    minutes = minutes.toLocaleString('en-US', { minimumIntegerDigits: 2 });
     return hours.toString() + ':' + minutes.toString();
 }
 
@@ -188,12 +187,28 @@ function period (index){
 }
 
 function sqrt(index) {
-   let operand = calculation.substring(index+1);
-   if (parseInt(operand) === NaN) {
-       return NaN
-   }
-   return parseInt(operand).toString(16);
+    let operand = calculation.substring(index + 1);
+    let number = parseInt(operand);
+
+    if (isNaN(number)) {
+        return NaN;
+    }
+
+    // Ensure the number is within the range for a valid color hex code (0 to 16777215)
+    number = Math.abs(number) % 16777216;
+
+   
+    let hexString = number.toString(16).padStart(6, '0');
+
+    hex = `#${hexString}`;
+    changeBackgroundColor(hex);
+    return hex;
 }
+ 
+function changeBackgroundColor(hex) {
+    document.body.style.backgroundColor = hex;
+}
+
 
 function percent (index) {
    let operand1 = calculation.substring(0, index).trim();
@@ -245,3 +260,4 @@ function completeQuest() {
    display.value = calculation;
 
 }
+
