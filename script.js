@@ -2,6 +2,7 @@ let display = document.getElementById('display');
 let calculation = '';
 let quests = [':3', 'Infinity', 'Sep29', 'p5', 'r2-d2', 'Arg.', '1 22 333', 'ln 4', '#000000', 'Catculator!'];
 let completedQuests = 0;
+let all_done = false;
 
 showWelcome();
 
@@ -230,15 +231,18 @@ function percent (index) {
 
 function updateQuestBox() {
    if (completedQuests >= quests.length) {
-       document.getElementById('quest').innerHTML = 'All done!'
+       document.getElementById('quest_text').innerHTML = 'All done!'
+       if(!all_done) {
+        showAllDone();
+        all_done = true;
+       }
        return;
    }
 
    let questText = 'Quest: Create ' + quests[completedQuests].toString();
    console.log(questText);
    document.getElementById('quest_text').innerHTML = questText;
-
-
+   showPopup();
 }
 
 function checkQuest() {
@@ -256,8 +260,7 @@ function completeQuest() {
    
     if (quests[completedQuests] === calculation) {
         console.log('Updating quest...');
-        completedQuests++;
-        showPopup();    
+        completedQuests++;    
         updateQuestBox();
     }
 
@@ -286,6 +289,18 @@ function showWelcome() {
     window.addEventListener('click', function(event) {
         if (event.target == document.getElementById('welcome-popup')) {
             document.getElementById('welcome-popup').style.display = 'none';
+        }
+    });
+}
+
+function showAllDone() {
+    document.getElementById('all-done-popup').style.display = 'block';
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('all-done-popup').style.display = 'none';
+    });
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('all-done-popup')) {
+            document.getElementById('all-done-popup').style.display = 'none';
         }
     });
 }
