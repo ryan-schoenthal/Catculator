@@ -49,6 +49,10 @@ function calculate() {
                 calculation = sqrt(i);
                 display.value = calculation;
                 return;
+            case '%':
+            calculation = percent(i);
+               display.value = calculation;
+               return;
         }
     }
     display.value = 'Error';
@@ -168,4 +172,18 @@ function sqrt(index) {
         return NaN
     }
     return parseInt(operand).toString(16);
+}
+
+function percent (index) {
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+   result = operand1;
+
+   if(operand2 < operand1.length){
+      result = operand1.substring(0, operand2) + " " + operand1.substring(operand2);
+   }else{
+      result = result + " ";
+   }
+
+   return result;
 }
