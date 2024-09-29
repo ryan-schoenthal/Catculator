@@ -2,6 +2,7 @@ let display = document.getElementById('display');
 let calculation = '';
 
 function updateDisplay(value) {
+    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
     calculation += value;
     display.value = calculation;
 }
@@ -29,6 +30,7 @@ function calculate() {
         switch (calculation.charAt(i)) {
             case '+':
                 calculation = addition(i);
+                display.value = calculation;
                 return;
             case '-':
                 calculation = subtraction(i);
@@ -36,9 +38,11 @@ function calculate() {
                 return;
             case '*':
                 calculation = multiplication(i);
+                display.value = calculation;
                 return;
             case '/':
                 calculation = division(i);
+                display.value = calculation;
                 return;
             
         }
@@ -49,7 +53,7 @@ function calculate() {
 }
 
 function checkQuest() {
-    let quests = ['In4', 'r34', ':3'];
+    let quests = ['ln4', 'r34', ':3'];
     for(let i = 0; i < quests.length; i++) {
         if (calculation === quests[i])
             return true;
@@ -67,13 +71,7 @@ function subtraction(index) {
     let operand1 = calculation.substring(0, index).trim();
     let operand2 = calculation.substring(index+1).trim();
 
-    console.log(operand1);
-    console.log(operand2);
-
-    let days = Math.abs((parseInt(operand1)- parseInt(operand2))) % 365;
-
-    console.log(days);
-    
+    let days = Math.abs((parseInt(operand1)- parseInt(operand2))) % 365;    
     let monthDays = [31,28,31,30,31,30,31,31,30,31,30,31];
     let month = 0;
     while (days >= 0) {
@@ -84,8 +82,6 @@ function subtraction(index) {
         month++;
     }
     month++;
-
-    console.log(month);
 
     let month_to_text = new Map();
     month_to_text.set(1, 'Jan');
@@ -101,6 +97,8 @@ function subtraction(index) {
     month_to_text.set(11,'Nov');
     month_to_text.set(12,'Dec');
 
+    if (days == 0) days = 1;
+
     let result = month_to_text.get(month).toString() + days.toString();
 
     console.log(result);
@@ -110,9 +108,26 @@ function subtraction(index) {
 }
 
 function multiplication(index) {
-    return '-1';
+    let operand1 = calculation.substring(0, index).trim();
+    let operand2 = calculation.substring(index+1).trim();
+
+    let minutes = Math.abs((parseInt(operand1) * parseInt(operand2)));
+    let hours = Math.floor(minutes / 60);
+    hours = hours % 24;
+    minutes = minutes % 60;
+
+    return hours.toString() + ':' + minutes.toString();
 }
 
 function division(index) {
-    return '-1';
+    let operand1 = calculation.substring(0, index).trim();
+    let operand2 = calculation.substring(index+1).trim();
+
+    if (operand2 === 0) {
+        let result = 'Infinity';
+    } else {
+        let result = operand1.substring(operand2);
+    }
+
+    return result;
 }
