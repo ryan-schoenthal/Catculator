@@ -13,9 +13,19 @@ function clearDisplay() {
 }
 
 function backspace() {
-    calculation = calculation.slice(0, -1);
-    display.value = calculation;
-    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
+   let charArray = Array.from(calculation);
+
+   // Check if there are any characters to remove
+   if (charArray.length > 0) {
+       // Remove the last character (which could be an emoji)
+       charArray.pop();
+   }
+   calculation = charArray.join('');
+
+   // Update the display value
+   display.value = calculation;
+
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
 }
 
 function calculate() {
@@ -42,7 +52,18 @@ function calculate() {
                 calculation = division(i);
                 display.value = calculation;
                 return;
-            
+            case '√':
+                calculation = sqrt(i);
+                display.value = calculation;
+                return;
+            case '%':
+            calculation = percent(i);
+               display.value = calculation;
+               return;
+            case '.':
+               calculation = period(i);
+                  display.value = calculation;
+                  return;
         }
     }
     display.value = 'Error';
@@ -150,4 +171,21 @@ function division(index) {
    result = operand1.substring(operand2);
 
    return result;
+}
+
+
+function period (index){
+   let result = '';
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+
+   //operand 1&2 make a number between 0 and 1023
+   let addon = (operand1 * 10 + operand2) % 1024;
+
+   let minEmoji = "\u{1F600}";
+   let codePoint = minEmoji.codePointAt(0);
+   let newCodePoint = codePoint + addon;
+   let emoji = String.fromCodePoint(newCodePoint);
+
+   return emoji;
 }
