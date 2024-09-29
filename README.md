@@ -1,4 +1,4 @@
-# sunhacks
+# Catculator
 Team repo for sunhacks 2024
 Jacob Kaufman-Warner, Daniel Ortiz Figueroa, Sanchi Patel, Ryan Schoenthal
 
