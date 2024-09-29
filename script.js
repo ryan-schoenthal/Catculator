@@ -18,6 +18,11 @@ function backspace() {
 }
 
 function calculate() {
+
+    if (checkQuest()) {
+        return;
+    }
+
     for (let i = 0; i < calculation.length; i++) {
         switch (calculation.charAt(i)) {
             case '+':
@@ -39,6 +44,16 @@ function calculate() {
     display.value = 'Error';
     document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
     calculation = '';
+}
+
+function checkQuest() {
+    let quests = ['In4', 'r34'];
+    for(let i = 0; i < quests.length; i++) {
+        if (calculation === quests[i])
+            return true;
+    }
+
+    return false;
 }
 
 function addition(index) {
