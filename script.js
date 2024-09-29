@@ -53,7 +53,7 @@ function calculate() {
 }
 
 function checkQuest() {
-    let quests = ['ln4', 'r34', ':3'];
+    let quests = ['Infinity','ln4', 'r34', ':3'];
     for(let i = 0; i < quests.length; i++) {
         if (calculation === quests[i])
             return true;
