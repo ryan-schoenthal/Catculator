@@ -156,7 +156,7 @@ function multiplication(index) {
     hours = hours % 24;
     hours = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
     minutes = minutes % 60;
-    minutes = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
+    minutes = minutes.toLocaleString('en-US', {minimumIntegerDigits: 2});
 
     return hours.toString() + ':' + minutes.toString();
 }
