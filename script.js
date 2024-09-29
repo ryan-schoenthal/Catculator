@@ -65,31 +65,31 @@ function checkQuest() {
 
 let buttonCount = 0, customButtons = [];
 function addButton() {
-   let buttonText = display.value;
-   if(buttonCount < 4) {
-      //create button
-      let newButton = document.createElement('button');
-      //add class for styling
-      newButton.className = 'button';
-      //set text
-      newButton.innerHTML = buttonText;
-      //Set onclick function
-      newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
-      //append buttons to buttons container
-      document.querySelector('.buttons').appendChild(newButton);
-      customButtons.push(newButton);
-   }else{
-      customButtons[buttonCount % 4].innerHTML = buttonText;
-      customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
-   }
+    let buttonText = display.value;
+    if(buttonCount < 4) {
+        //create button
+        let newButton = document.createElement('button');
+        //add class for styling
+        newButton.className = 'button';
+        //set text
+        newButton.innerHTML = buttonText;
+        //Set onclick function
+        newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
+        //append buttons to buttons container
+        document.querySelector('.buttons').appendChild(newButton);
+        customButtons.push(newButton);
+    } else{
+        customButtons[buttonCount % 4].innerHTML = buttonText;
+        customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
+    }
 
-   buttonCount++;
-   clearDisplay();
+    buttonCount++;
+    clearDisplay();
 }
 
 
 function displayCustom(buttonText) {
-   updateDisplay(buttonText);
+    updateDisplay(buttonText);
 }
 
 
