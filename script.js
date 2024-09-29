@@ -2,6 +2,7 @@ let display = document.getElementById('display');
 let calculation = '';
 
 function updateDisplay(value) {
+    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
     calculation += value;
     display.value = calculation;
 }
@@ -102,5 +103,10 @@ function multiplication(index) {
 }
 
 function division(index) {
-    return '-1';
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+
+   result = operand1.substring(operand2);
+
+   return result;
 }
