@@ -211,7 +211,7 @@ function percent (index) {
 }
 
 function updateQuestBox() {
-   if (completeQuests >= quests.length) {
+   if (completedQuests >= quests.length) {
        document.getElementById('quest').innerHTML = 'All done!'
        return;
    }
