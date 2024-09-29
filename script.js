@@ -1,5 +1,7 @@
 let display = document.getElementById('display');
 let calculation = '';
+let quests = [':3','Infinity','ln4', 'r34', 'catculator!'];
+let completedQuests = 0;
 
 function updateDisplay(value) {
     document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
@@ -31,6 +33,7 @@ function backspace() {
 function calculate() {
 
     if (checkQuest()) {
+        completeQuest();
         return;
     }
 
@@ -71,44 +74,33 @@ function calculate() {
     calculation = '';
 }
 
-function checkQuest() {
-    let quests = ['In4', 'r34'];
-    for(let i = 0; i < quests.length; i++) {
-        if (calculation === quests[i])
-            return true;
-    }
-
-    return false;
-}   
-
-
 let buttonCount = 0, customButtons = [];
 function addButton() {
-   let buttonText = display.value;
-   if(buttonCount < 4) {
-      //create button
-      let newButton = document.createElement('button');
-      //add class for styling
-      newButton.className = 'button';
-      //set text
-      newButton.innerHTML = buttonText;
-      //Set onclick function
-      newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
-      //append buttons to buttons container
-      document.querySelector('.buttons').appendChild(newButton);
-      customButtons.push(newButton);
-   }else{
-      customButtons[buttonCount % 4].innerHTML = buttonText;
-      customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
-   }
+    let buttonText = display.value;
+    if(buttonCount < 4) {
+        //create button
+        let newButton = document.createElement('button');
+        //add class for styling
+        newButton.className = 'button';
+        //set text
+        newButton.innerHTML = buttonText;
+        //Set onclick function
+        newButton.setAttribute('onclick', `displayCustom('${buttonText}')`);
+        //append buttons to buttons container
+        document.querySelector('.buttons').appendChild(newButton);
+        customButtons.push(newButton);
+    } else{
+        customButtons[buttonCount % 4].innerHTML = buttonText;
+        customButtons[buttonCount % 4].setAttribute('onclick', `displayCustom('${buttonText}')`);
+    }
 
-   buttonCount++;
-   clearDisplay();
+    buttonCount++;
+    clearDisplay();
 }
 
 
 function displayCustom(buttonText) {
-   updateDisplay(buttonText);
+    updateDisplay(buttonText);
 }
 
 
@@ -116,13 +108,7 @@ function subtraction(index) {
     let operand1 = calculation.substring(0, index).trim();
     let operand2 = calculation.substring(index+1).trim();
 
-    console.log(operand1);
-    console.log(operand2);
-
-    let days = Math.abs((parseInt(operand1)- parseInt(operand2))) % 365;
-
-    console.log(days);
-    
+    let days = Math.abs((parseInt(operand1)- parseInt(operand2))) % 365;    
     let monthDays = [31,28,31,30,31,30,31,31,30,31,30,31];
     let month = 0;
     while (days >= 0) {
@@ -133,8 +119,6 @@ function subtraction(index) {
         month++;
     }
     month++;
-
-    console.log(month);
 
     let month_to_text = new Map();
     month_to_text.set(1, 'Jan');
@@ -161,18 +145,31 @@ function subtraction(index) {
 }
 
 function multiplication(index) {
-    return '-1';
+    let operand1 = calculation.substring(0, index).trim();
+    let operand2 = calculation.substring(index+1).trim();
+
+    let minutes = Math.abs((parseInt(operand1) * parseInt(operand2)));
+    let hours = Math.floor(minutes / 60);
+    hours = hours % 24;
+    hours = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
+    minutes = minutes % 60;
+    minutes = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
+
+    return hours.toString() + ':' + minutes.toString();
 }
 
 function division(index) {
-   let operand1 = calculation.substring(0, index).trim();
-   let operand2 = calculation.substring(index+1).trim();
+    let operand1 = calculation.substring(0, index).trim();
+    let operand2 = calculation.substring(index+1).trim();
 
-   result = operand1.substring(operand2);
+    if (operand2 == 0) {
+        result = 'Infinity';
+    } else {
+        result = operand1.substring(operand2);
+    }
 
-   return result;
+    return result;
 }
-
 
 function period (index){
    let result = '';
@@ -188,4 +185,63 @@ function period (index){
    let emoji = String.fromCodePoint(newCodePoint);
 
    return emoji;
+}
+
+function sqrt(index) {
+   let operand = calculation.substring(index+1);
+   if (parseInt(operand) === NaN) {
+       return NaN
+   }
+   return parseInt(operand).toString(16);
+}
+
+function percent (index) {
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+   result = operand1;
+
+   if(operand2 < operand1.length){
+      result = operand1.substring(0, operand2) + " " + operand1.substring(operand2);
+   }else{
+      result = result + " ";
+   }
+
+   return result;
+
+}
+
+function updateQuestBox() {
+   if (completeQuests >= quests.length) {
+       document.getElementById('quest').innerHTML = 'All done!'
+       return;
+   }
+
+   let questText = 'Quest: Create ' + quests[completedQuests].toString();
+   console.log(questText);
+   document.getElementById('quest').innerHTML = questText;
+
+}
+
+function checkQuest() {
+   for(let i = 0; i < quests.length; i++) {
+       if (calculation === quests[i])
+           return true;
+   }
+
+   return false;
+}
+
+function completeQuest() {
+   console.log('Quest Complete!');
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
+   
+   if (quests[completedQuests] === calculation) {
+       console.log('Updating quest...');
+       completedQuests++;
+       updateQuestBox();
+   }
+
+   calculation = 'Quest Complete!'
+   display.value = calculation;
+
 }
