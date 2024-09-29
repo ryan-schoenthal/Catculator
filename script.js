@@ -1,5 +1,7 @@
 let display = document.getElementById('display');
 let calculation = '';
+let quests = [':3','Infinity','ln4', 'r34'];
+let completedQuests = 0;
 
 function updateDisplay(value) {
     document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
@@ -21,9 +23,7 @@ function backspace() {
 function calculate() {
 
     if (checkQuest()) {
-        document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
-        calculation = 'Quest: Complete!'
-        display.value = calculation;
+        completeQuest();
         return;
     }
 
@@ -55,17 +55,6 @@ function calculate() {
     document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
     calculation = '';
 }
-
-function checkQuest() {
-    let quests = ['Infinity','ln4', 'r34', ':3'];
-    for(let i = 0; i < quests.length; i++) {
-        if (calculation === quests[i])
-            return true;
-    }
-
-    return false;
-}   
-
 
 let buttonCount = 0, customButtons = [];
 function addButton() {
@@ -170,4 +159,40 @@ function sqrt(index) {
         return NaN
     }
     return parseInt(operand).toString(16);
+}
+
+
+function updateQuestBox() {
+    if (completeQuests >= quests.length) {
+        document.getElementById('quest').innerHTML = 'All done!'
+        return;
+    }
+
+    let questText = 'Quest: Create ' + quests[completedQuests].toString();
+    console.log(questText);
+    document.getElementById('quest').innerHTML = questText;
+
+}
+
+function checkQuest() {
+    for(let i = 0; i < quests.length; i++) {
+        if (calculation === quests[i])
+            return true;
+    }
+
+    return false;
+}
+
+function completeQuest() {
+    console.log('Quest Complete!');
+    document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
+    
+    if (quests[completedQuests] === calculation) {
+        console.log('Updating quest...');
+        completedQuests++;
+        updateQuestBox();
+    }
+
+    calculation = 'Quest Complete!'
+    display.value = calculation;
 }
