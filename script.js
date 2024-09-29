@@ -1,6 +1,6 @@
 let display = document.getElementById('display');
 let calculation = '';
-let quests = [':3','Infinity','ln4', 'r34'];
+let quests = [':3','Infinity','ln4', 'r34', 'catculator!'];
 let completedQuests = 0;
 
 function updateDisplay(value) {
@@ -15,9 +15,19 @@ function clearDisplay() {
 }
 
 function backspace() {
-    calculation = calculation.slice(0, -1);
-    display.value = calculation;
-    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
+   let charArray = Array.from(calculation);
+
+   // Check if there are any characters to remove
+   if (charArray.length > 0) {
+       // Remove the last character (which could be an emoji)
+       charArray.pop();
+   }
+   calculation = charArray.join('');
+
+   // Update the display value
+   display.value = calculation;
+
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
 }
 
 function calculate() {
@@ -53,6 +63,10 @@ function calculate() {
             calculation = percent(i);
                display.value = calculation;
                return;
+            case '.':
+               calculation = period(i);
+                  display.value = calculation;
+                  return;
         }
     }
     display.value = 'Error';
@@ -157,49 +171,29 @@ function division(index) {
     return result;
 }
 
+function period (index){
+   let result = '';
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+
+   //operand 1&2 make a number between 0 and 1023
+   let addon = (operand1 * 10 + operand2) % 1024;
+
+   let minEmoji = "\u{1F600}";
+   let codePoint = minEmoji.codePointAt(0);
+   let newCodePoint = codePoint + addon;
+   let emoji = String.fromCodePoint(newCodePoint);
+
+   return emoji;
+}
+
 function sqrt(index) {
-    let operand = calculation.substring(index+1);
-    if (parseInt(operand) === NaN) {
-        return NaN
-    }
-    return parseInt(operand).toString(16);
+   let operand = calculation.substring(index+1);
+   if (parseInt(operand) === NaN) {
+       return NaN
+   }
+   return parseInt(operand).toString(16);
 }
-
-
-
-function updateQuestBox() {
-    if (completeQuests >= quests.length) {
-        document.getElementById('quest').innerHTML = 'All done!'
-        return;
-    }
-
-    let questText = 'Quest: Create ' + quests[completedQuests].toString();
-    console.log(questText);
-    document.getElementById('quest').innerHTML = questText;
-
-}
-
-function checkQuest() {
-    for(let i = 0; i < quests.length; i++) {
-        if (calculation === quests[i])
-            return true;
-    }
-
-    return false;
-}
-
-function completeQuest() {
-    console.log('Quest Complete!');
-    document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
-    
-    if (quests[completedQuests] === calculation) {
-        console.log('Updating quest...');
-        completedQuests++;
-        updateQuestBox();
-    }
-
-    calculation = 'Quest Complete!'
-    display.value = calculation;
 
 function percent (index) {
    let operand1 = calculation.substring(0, index).trim();
@@ -213,5 +207,41 @@ function percent (index) {
    }
 
    return result;
+
+}
+
+function updateQuestBox() {
+   if (completedQuests >= quests.length) {
+       document.getElementById('quest').innerHTML = 'All done!'
+       return;
+   }
+
+   let questText = 'Quest: Create ' + quests[completedQuests].toString();
+   console.log(questText);
+   document.getElementById('quest_text').innerHTML = questText;
+
+}
+
+function checkQuest() {
+   for(let i = 0; i < quests.length; i++) {
+       if (calculation === quests[i])
+           return true;
+   }
+
+   return false;
+}
+
+function completeQuest() {
+   console.log('Quest Complete!');
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
+   
+   if (quests[completedQuests] === calculation) {
+       console.log('Updating quest...');
+       completedQuests++;
+       updateQuestBox();
+   }
+
+   calculation = 'Quest Complete!'
+   display.value = calculation;
 
 }
