@@ -1,5 +1,7 @@
 let display = document.getElementById('display');
 let calculation = '';
+let quests = [':3','Infinity','ln4', 'r34', 'catculator!'];
+let completedQuests = 0;
 
 function updateDisplay(value) {
     document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
@@ -13,17 +15,25 @@ function clearDisplay() {
 }
 
 function backspace() {
-    calculation = calculation.slice(0, -1);
-    display.value = calculation;
-    document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
+   let charArray = Array.from(calculation);
+
+   // Check if there are any characters to remove
+   if (charArray.length > 0) {
+       // Remove the last character (which could be an emoji)
+       charArray.pop();
+   }
+   calculation = charArray.join('');
+
+   // Update the display value
+   display.value = calculation;
+
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#cec3c1');
 }
 
 function calculate() {
 
     if (checkQuest()) {
-        document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
-        calculation = 'Quest: Complete!'
-        display.value = calculation;
+        completeQuest();
         return;
     }
 
@@ -49,23 +59,20 @@ function calculate() {
                 calculation = sqrt(i);
                 display.value = calculation;
                 return;
+            case '%':
+            calculation = percent(i);
+               display.value = calculation;
+               return;
+            case '.':
+               calculation = period(i);
+                  display.value = calculation;
+                  return;
         }
     }
     display.value = 'Error';
     document.querySelector('.calculator').style.setProperty('--bg-color', '#E76261');
     calculation = '';
 }
-
-function checkQuest() {
-    let quests = ['Infinity','ln4', 'r34', ':3'];
-    for(let i = 0; i < quests.length; i++) {
-        if (calculation === quests[i])
-            return true;
-    }
-
-    return false;
-}   
-
 
 let buttonCount = 0, customButtons = [];
 function addButton() {
@@ -147,7 +154,6 @@ function multiplication(index) {
     hours = hours.toLocaleString('en-US', { minimumIntegerDigits: 2 });
     minutes = minutes % 60;
     minutes = minutes.toLocaleString('en-US', { minimumIntegerDigits: 2 });
-
     return hours.toString() + ':' + minutes.toString();
 }
 
@@ -162,6 +168,22 @@ function division(index) {
     }
 
     return result;
+}
+
+function period (index){
+   let result = '';
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+
+   //operand 1&2 make a number between 0 and 1023
+   let addon = (operand1 * 10 + operand2) % 1024;
+
+   let minEmoji = "\u{1F600}";
+   let codePoint = minEmoji.codePointAt(0);
+   let newCodePoint = codePoint + addon;
+   let emoji = String.fromCodePoint(newCodePoint);
+
+   return emoji;
 }
 
 function sqrt(index) {
@@ -187,4 +209,55 @@ function changeBackgroundColor(hex) {
     document.body.style.backgroundColor = hex;
 }
 
+
+function percent (index) {
+   let operand1 = calculation.substring(0, index).trim();
+   let operand2 = calculation.substring(index+1).trim();
+   result = operand1;
+
+   if(operand2 < operand1.length){
+      result = operand1.substring(0, operand2) + " " + operand1.substring(operand2);
+   }else{
+      result = result + " ";
+   }
+
+   return result;
+
+}
+
+function updateQuestBox() {
+   if (completedQuests >= quests.length) {
+       document.getElementById('quest').innerHTML = 'All done!'
+       return;
+   }
+
+   let questText = 'Quest: Create ' + quests[completedQuests].toString();
+   console.log(questText);
+   document.getElementById('quest').innerHTML = questText;
+
+}
+
+function checkQuest() {
+   for(let i = 0; i < quests.length; i++) {
+       if (calculation === quests[i])
+           return true;
+   }
+
+   return false;
+}
+
+function completeQuest() {
+   console.log('Quest Complete!');
+   document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
+   
+   if (quests[completedQuests] === calculation) {
+       console.log('Updating quest...');
+       completedQuests++;
+       updateQuestBox();
+   }
+
+   calculation = 'Quest Complete!'
+   display.value = calculation;
+
+}
 
