@@ -1,6 +1,6 @@
 let display = document.getElementById('display');
 let calculation = '';
-let quests = [':3','Infinity','ln4', 'r34', 'catculator!'];
+let quests = [':3','Infinity', 'In4', 'Mar14', 'Arg.', '1 22 333', '#000000', 'Catculator!'];
 let completedQuests = 0;
 
 function updateDisplay(value) {
