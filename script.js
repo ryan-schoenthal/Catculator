@@ -44,7 +44,10 @@ function calculate() {
                 calculation = division(i);
                 display.value = calculation;
                 return;
-            
+            case '√':
+                calculation = sqrt(i);
+                display.value = calculation;
+                return;
         }
     }
     display.value = 'Error';
@@ -156,4 +159,12 @@ function division(index) {
     }
 
     return result;
+}
+
+function sqrt(index) {
+    let operand = calculation.substring(index+1);
+    if (parseInt(operand) === NaN) {
+        return NaN
+    }
+    return parseInt(operand).toString(16);
 }
