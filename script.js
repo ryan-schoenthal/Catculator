@@ -151,9 +151,10 @@ function multiplication(index) {
     let minutes = Math.abs((parseInt(operand1) * parseInt(operand2)));
     let hours = Math.floor(minutes / 60);
     hours = hours % 24;
-    hours = hours.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+    hours = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
     minutes = minutes % 60;
-    minutes = minutes.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+    minutes = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
+
     return hours.toString() + ':' + minutes.toString();
 }
 
@@ -251,13 +252,26 @@ function completeQuest() {
    console.log('Quest Complete!');
    document.querySelector('.calculator').style.setProperty('--bg-color', '#5fd367');
    
-   if (quests[completedQuests] === calculation) {
-       console.log('Updating quest...');
-       completedQuests++;
-       updateQuestBox();
-   }
+    if (quests[completedQuests] === calculation) {
+        console.log('Updating quest...');
+        completedQuests++;
+        showPopup();    
+        updateQuestBox();
+    }
 
    calculation = 'Quest Complete!'
    display.value = calculation;
 
+}
+
+function showPopup() {
+    document.getElementById('popup').style.display = 'block';
+    document.querySelector('.close-btn').addEventListener('click', function() {
+        document.getElementById('popup').style.display = 'none';
+    });
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('popup')) {
+            document.getElementById('popup').style.display = 'none';
+        }
+    });
 }
