@@ -21,6 +21,8 @@ function backspace() {
 function calculate() {
 
     if (checkQuest()) {
+        calculation = 'Quest: Complete!'
+        display.value = calculation;
         return;
     }
 
@@ -51,7 +53,7 @@ function calculate() {
 }
 
 function checkQuest() {
-    let quests = ['In4', 'r34'];
+    let quests = ['In4', 'r34', ':3'];
     for(let i = 0; i < quests.length; i++) {
         if (calculation === quests[i])
             return true;
