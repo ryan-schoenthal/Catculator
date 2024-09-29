@@ -140,7 +140,9 @@ function multiplication(index) {
     let minutes = Math.abs((parseInt(operand1) * parseInt(operand2)));
     let hours = Math.floor(minutes / 60);
     hours = hours % 24;
+    hours = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
     minutes = minutes % 60;
+    minutes = hours.toLocaleString('en-US', {minimumIntegerDigits: 2});
 
     return hours.toString() + ':' + minutes.toString();
 }
